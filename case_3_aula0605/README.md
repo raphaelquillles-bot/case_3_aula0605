@@ -11,6 +11,19 @@ Este sistema foi desenvolvido para resolver os seguintes desafios de gestão:
 * Consulta de informações sobre o catálogo (elenco, diretores e gêneros).
 
 ---
+# Sistema de Gestão de Rede de Cinemas
+
+## Contextualização do Problema
+Uma rede de cinemas possui diversas unidades espalhadas por diferentes cidades e estados. Cada cinema possui características próprias (como capacidade de público e endereço) e exibe simultaneamente vários filmes em cartaz, organizados em sessões ao longo do dia.
+
+Este sistema foi desenvolvido para resolver os seguintes desafios de gestão:
+* Controle dos filmes em exibição por cinema.
+* Organização das sessões, respeitando a duração dos filmes e intervalos.
+* Registro diário do público de cada sessão.
+* Totalização de público por sessão, por filme e por cinema.
+* Consulta de informações sobre o catálogo (elenco, diretores e gêneros).
+
+---
 
 ## 1. Levantamento de Requisitos e Regras de Negócio
 
@@ -28,7 +41,6 @@ Este sistema foi desenvolvido para resolver os seguintes desafios de gestão:
 ---
 
 ## 2. Diagrama de Casos de Uso (Visão Geral)
-Abaixo, a representação das principais interações dos atores com o sistema.
 
 ```mermaid
 flowchart LR
@@ -52,8 +64,14 @@ flowchart LR
     Funcionario --> UC5
     
     Espectador --> UC6
+```
 
-    classDiagram
+---
+
+## 3. Diagrama de Classes do Domínio
+
+```mermaid
+classDiagram
     class Cinema {
         +String nome
         +String enderecoCompleto
@@ -85,8 +103,14 @@ flowchart LR
     Filme "1" -- "0..*" Sessao : exibido em
     Filme "1..*" -- "1..*" Genero : classificado como
     Filme "1..*" -- "1..*" Profissional : possui (Elenco/Diretor)
+```
 
-    stateDiagram-v2
+---
+
+## 4. Diagrama de Atividades
+
+```mermaid
+stateDiagram-v2
     [*] --> SelecionarCinema
     SelecionarCinema --> SelecionarSessao
     SelecionarSessao --> InformarQuantidadePublico
@@ -101,8 +125,14 @@ flowchart LR
     CapacidadeExcedida --> InformarQuantidadePublico : Exibir Erro
     CapacidadePermitida --> SalvarRegistro
     SalvarRegistro --> [*]
+```
 
-    sequenceDiagram
+---
+
+## 5. Diagrama de Sequência
+
+```mermaid
+sequenceDiagram
     actor Funcionario
     participant View (Interface)
     participant Controller
@@ -127,3 +157,4 @@ flowchart LR
     Service-->>Controller: Sucesso
     Controller-->>View (Interface): Exibir Mensagem("Público registrado com sucesso")
     View (Interface)-->>Funcionario: Confirmação Visual
+```
